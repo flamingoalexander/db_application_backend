@@ -11,3 +11,9 @@ services:
       - ./db_data:/var/lib/postgresql/data
     ports:
       - "${POSTGRES_PORT}:5432"
+  back:
+    container_name: back
+    ports:
+      - "3000:3000"     # Пробрасываем порт для доступа к серверу
+    depends_on:
+      - postgres        # Зависимость от сервиса PostgreSQL
