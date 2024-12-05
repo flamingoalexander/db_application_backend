@@ -5,11 +5,11 @@ const app = express();
 app.use(express.json());
 
 const client = new Client({
-    user: 'username',       // Замените на ваше имя пользователя PostgreSQL
-    host: 'ipaddress',      // Замените на хост вашей базы данных
-    database: 'postgres',       // Замените на имя вашей базы данных
-    password: 'passwd',   // Замените на ваш пароль
-    port: 228,             // Замените на порт вашей базы данных, если отличается
+    user: process.env.POSTGRES_USER,       // Замените на ваше имя пользователя PostgreSQL
+    host: process.env.POSTGRES_HOST,  // Замените на хост вашей базы данных
+    database: process.env.POSTGRES_DB,       // Замените на имя вашей базы данных
+    password: process.env.POSTGRES_PASSWORD,   // Замените на ваш пароль
+    port: process.env.POSTGRES_PORT,             // Замените на порт вашей базы данных, если отличается
 });
 
 client.connect();
