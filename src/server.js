@@ -10,7 +10,7 @@ const client = new Client({
     host: process.env.POSTGRES_HOST,  // Замените на хост вашей базы данных
     database: process.env.POSTGRES_DB,       // Замените на имя вашей базы данных
     password: process.env.POSTGRES_PASSWORD,   // Замените на ваш пароль
-    port: process.env.POSTGRES_PORT,             // Замените на порт вашей базы данных, если отличается
+    port: 5432,             // Замените на порт вашей базы данных, если отличается
 });
 
 client.connect();
