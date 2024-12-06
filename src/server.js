@@ -93,7 +93,7 @@ app.post('/logout', async (req, res) => {
 
 app.use( async (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];
-    console.log(req.headers.authorization);
+
     if (!token) {
         console.log('there is no token');
         return res.status(401).json({ error: 'Invalid token' });
@@ -101,7 +101,8 @@ app.use( async (req, res, next) => {
     const userResult = await client.query(
         `SELECT * FROM active_sessions WHERE session_token = '${token}';`
     );
-    if (userResult.rowCount > 0) {
+    console.log(userResult);
+    if (userResult.rowCount === 0) {
         console.log('invalid token');
         return res.status(401).json({ error: 'Invalid token' });
     }
