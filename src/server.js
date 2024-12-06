@@ -49,7 +49,7 @@ app.post('/login', async (req, res) => {
                 console.log(123);
                 console.log(user_id);
                 await client.query(
-                    `INSERT INTO actives_sessions (user_id, session_token) VALUES (${user_id}, ${sessionToken});`
+                    `INSERT INTO active_sessions (user_id, session_token) VALUES (${user_id}, ${sessionToken});`
                 );
                 res.status(200).json({
                     message: 'Login successful',
