@@ -71,7 +71,7 @@ app.post('/logout', async (req, res) => {
     try {
         if (token) {
             await client.query(
-                `DELETE FROM active_sessions WHERE session_token = ${token};`
+                `DELETE FROM active_sessions WHERE session_token = '${token}';`
             );
             res.status(200).json({
                 message: 'Successful logout',
