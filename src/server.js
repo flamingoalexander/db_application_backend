@@ -1,5 +1,6 @@
 const express = require('express');
 const { Client } = require('pg');
+const crypto = require('crypto');
 require('dotenv').config()
 
 const app = express();
@@ -15,6 +16,13 @@ const client = new Client({
 
 client.connect();
 
+function generateRandomString() {
+    return crypto.createHash('sha256') // Выбираем алгоритм хэширования
+        .update(crypto.randomBytes(64)) // Генерируем случайные данные
+        .digest('hex') // Преобразуем в строку
+        .slice(0, 64); // Обрезаем до 64 символов (если нужно)
+}
+
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*'); // В реальном приложении лучше указать конкретный источник
     res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
@@ -22,7 +30,45 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(express.json());
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const userResult = await client.query(
+            'SELECT passwd, user_id FROM users WHERE username = $1 LIMIT 1;',
+            [username]
+        );
+        console.log(userResult);
+        const user_id = userResult.rows[0].id;
+        if (userResult.rows.length > 0) {
+            const userPasswd = userResult.rows[0].passwd;
+
+            if (userPasswd === password) {
+                const sessionToken = generateRandomString();
+                await client.query(
+                    `INSERT INTO active_sessions (user_id, session_token) VALUES (1, );`,
+                res.status(200).json({
+                    message: 'Login successful',
+                    token: userResult.rows[0].token,
+                });
+            } else {
+                console.log('wrong paswd');
+                res.status(401).json({ message: 'Invalid credentials' });
+            }
+        } else {
+            console.log('user does not exist');
+            res.status(401).json({ message: 'Invalid credentials' });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+
+})
+
+
+
+
+
 
 app.post('/query', async (req, res) => {
     const sqlQuery = req.body.query;
