@@ -49,7 +49,7 @@ app.post('/login', async (req, res) => {
                 res.status(200).json({
                     message: 'Login successful',
                     token: userResult.rows[0].token,
-                });
+                }));
             } else {
                 console.log('wrong paswd');
                 res.status(401).json({ message: 'Invalid credentials' });
