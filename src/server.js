@@ -64,9 +64,24 @@ app.post('/login', async (req, res) => {
         console.error(err);
         res.status(500).json({ message: 'Internal server error' });
     }
-
 })
 
+app.post('/logout', async (req, res) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    try {
+        if (token) {
+            await client.query(
+                `DELETE FROM active_sessions WHERE session_token = ${token};`
+            );
+            res.status(200).json({
+                message: 'Successful logout',
+            });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+})
 
 
 
