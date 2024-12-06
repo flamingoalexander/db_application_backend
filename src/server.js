@@ -45,7 +45,7 @@ app.post('/login', async (req, res) => {
             const userPasswd = userResult.rows[0].passwd;
             if (userPasswd === password) {
                 const sessionToken = generateRandomString();
-                const user_id = userResult.rows[0].id;
+                const user_id = userResult.rows[0].user_id;
                 console.log(123);
                 console.log(user_id);
                 await client.query(
