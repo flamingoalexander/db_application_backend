@@ -6,6 +6,13 @@ require('dotenv').config()
 const app = express();
 app.use(express.json());
 
+app.options('*', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+    res.status(204).end();
+});
+
 const client = new Client({
     user: process.env.POSTGRES_USER,       // Замените на ваше имя пользователя PostgreSQL
     host: process.env.POSTGRES_HOST,  // Замените на хост вашей базы данных
