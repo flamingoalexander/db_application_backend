@@ -32,6 +32,9 @@ app.use((req, res, next) => {
 
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
+    console.log(123);
+    console.log(username, password);
+    console.log(req.body);
     try {
         const userResult = await client.query(
             'SELECT passwd, user_id FROM users WHERE username = $1 LIMIT 1;',
