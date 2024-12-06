@@ -26,7 +26,7 @@ function generateRandomString() {
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*'); // В реальном приложении лучше указать конкретный источник
     res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Headers', 'Content-Type , authorization');
     next();
 });
 
