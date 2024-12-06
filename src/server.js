@@ -39,9 +39,9 @@ app.use((req, res, next) => {
 
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
-    // console.log(123);
-    // console.log(username, password);
-    // console.log(req.body);
+    console.log(1224);
+    console.log(username, password);
+    console.log(req.body);
     try {
         const userResult = await client.query(
             'SELECT passwd, user_id FROM users WHERE username = $1 LIMIT 1;',
@@ -93,6 +93,7 @@ app.post('/logout', async (req, res) => {
 
 app.use( async (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];
+    console.log(req.headers.authorization);
     if (!token) {
         console.log('there is no token');
         return res.status(401).json({ error: 'Invalid token' });
