@@ -40,20 +40,17 @@ app.post('/login', async (req, res) => {
             'SELECT passwd, user_id FROM users WHERE username = $1 LIMIT 1;',
             [username]
         );
-        console.log(userResult);
         if (userResult.rowCount > 0) {
             const userPasswd = userResult.rows[0].passwd;
             if (userPasswd === password) {
                 const sessionToken = generateRandomString();
                 const user_id = userResult.rows[0].user_id;
-                console.log(123);
-                console.log(user_id);
                 await client.query(
                     `INSERT INTO active_sessions (user_id, session_token) VALUES (${user_id}, '${sessionToken}');`
                 );
                 res.status(200).json({
                     message: 'Login successful',
-                    token: userResult.rows[0].token,
+                    token: sessionToken,
                 });
             } else {
                 console.log('wrong paswd');
