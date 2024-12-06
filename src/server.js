@@ -32,27 +32,27 @@ app.use((req, res, next) => {
 
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
-    console.log(123);
-    console.log(username, password);
-    console.log(req.body);
+    // console.log(123);
+    // console.log(username, password);
+    // console.log(req.body);
     try {
         const userResult = await client.query(
             'SELECT passwd, user_id FROM users WHERE username = $1 LIMIT 1;',
             [username]
         );
         console.log(userResult);
-        const user_id = userResult.rows[0].id;
-        if (userResult.rows.length > 0) {
+        if (userResult.rowCount > 0) {
             const userPasswd = userResult.rows[0].passwd;
-
             if (userPasswd === password) {
                 const sessionToken = generateRandomString();
+                const user_id = userResult.rows[0].id;
                 await client.query(
-                    `INSERT INTO active_sessions (user_id, session_token) VALUES (1, );`,
+                    `INSERT INTO active_sessions (user_id, session_token) VALUES (${user_id}, ${sessionToken});`
+                );
                 res.status(200).json({
                     message: 'Login successful',
                     token: userResult.rows[0].token,
-                }));
+                });
             } else {
                 console.log('wrong paswd');
                 res.status(401).json({ message: 'Invalid credentials' });
