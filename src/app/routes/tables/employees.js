@@ -7,7 +7,7 @@ const router = express.Router();
 router.put('/table/employees', async (req, res) => {
     const employee = req.body
     if (!(employee.job_title && employee.full_name)) {
-        res.status(400).json({ message:'Bad request: empty job title or full name' })
+        return res.status(400).json({ message:'Bad request: empty job title or full name' })
     }
     try {
         await DBQuery(`INSERT INTO employees (
@@ -28,16 +28,16 @@ router.put('/table/employees', async (req, res) => {
              '${employee.education}'         
                  );
         `)
-        res.status(200).json({message:'Success'})
+        res.status(200).json({ message: 'Success' })
     } catch (err) {
-        res.status(500).json({message:err.message});
+        res.status(500).json({ message: err.message });
     }
 });
 
 router.patch('/table/employees', async (req, res) => {
     const employee = req.body
     if (!(employee.job_title && employee.full_name)) {
-        res.status(400).json({ message:'Bad request: empty job title or full name' })
+        return res.status(400).json({ message:'Bad request: empty job title or full name' })
     }
     try {
         await DBQuery(`UPDATE employees
@@ -63,7 +63,7 @@ router.patch('/table/employees', async (req, res) => {
 router.delete('/table/employees', async (req, res) => {
     const employee_id = req.body.employee_id
     if (isNaN(employee_id)) {
-        res.status(400).json({ message:'Bad request'})
+        return res.status(400).json({ message:'Bad request'})
     }
     try {
         await DBQuery(`DELETE FROM employees WHERE employee_id = ${employee_id};`)
