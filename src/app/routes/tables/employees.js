@@ -25,14 +25,15 @@ router.put('/table/employees', async (req, res) => {
              '${employee.education}'         
                  );
         `)
-        res.status(200).send('Success');
+        res.status(200).json({message:'Success'})
     } catch (err) {
-        res.status(500).send(err.message);
+        res.status(500).json({message:err.message});
     }
 });
 
 router.patch('/table/employees', async (req, res) => {
     const employee = req.body.employee
+    console.log(employee)
     try {
         DBQuery(`UPDATE employees
             SET 
@@ -40,16 +41,17 @@ router.patch('/table/employees', async (req, res) => {
                 full_name = '${employee.full_name}',
                 DOB = '${employee.dob}',
                 hiring_date = '${employee.hiring_date}',
-                experience = '${employee.experience}',
+                experience = '5 years',
                 academic_degree = '${employee.academic_degree}',
                 education = '${employee.education}'
             WHERE 
                 employee_id = ${employee.employee_id}; 
         `)
-        res.status(200).send('Success');
+        res.status(200).json({message:'Success'})
         console.log('success patch' + employee);
     } catch (err) {
-        res.status(500).send(err.message);
+        res.status(500).json({message:err.message});
+        console.log(err)
     }
 });
 
@@ -57,10 +59,10 @@ router.delete('/table/employees', async (req, res) => {
     const employee_id = req.body.employee_id
     try {
         DBQuery(`DELETE FROM employees WHERE employee_id = ${employee_id};`)
-        res.status(200).send('Success');
+        res.status(200).json({message:'Success'})
         console.log('success delete' + employee_id);
     } catch (err) {
-        res.status(500).send(err.message);
+        res.status(500).json({message:err.message});
     }
 });
 module.exports = router;
