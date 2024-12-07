@@ -56,7 +56,7 @@ router.patch('/table/employees', async (req, res) => {
 });
 
 router.delete('/table/employees', async (req, res) => {
-    const employee_id = req.body.employee_id
+    const employee_id = req.body.employee.employee_id
     try {
         DBQuery(`DELETE FROM employees WHERE employee_id = ${employee_id};`)
         res.status(200).json({message:'Success'})
