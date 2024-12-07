@@ -6,6 +6,9 @@ const router = express.Router();
 
 router.put('/table/employees', async (req, res) => {
     const employee = req.body
+    if (!(employee.job_title && employee.full_name)) {
+        res.status(400).json({ message:'Bad request: empty job title or full name' })
+    }
     try {
         await DBQuery(`INSERT INTO employees (
             job_title,
@@ -33,7 +36,9 @@ router.put('/table/employees', async (req, res) => {
 
 router.patch('/table/employees', async (req, res) => {
     const employee = req.body
-    console.log(employee)
+    if (!(employee.job_title && employee.full_name)) {
+        res.status(400).json({ message:'Bad request: empty job title or full name' })
+    }
     try {
         await DBQuery(`UPDATE employees
             SET 
