@@ -7,7 +7,7 @@ const router = express.Router();
 const tableName = 'disciplines';
 
 router.put(`/table/${tableName}`, async (req, res) => {
-    const discipline = req.body.discipline
+    const discipline = req.body
     try {
         await DBQuery(`INSERT INTO ${tableName} (
             discipline_name,
@@ -23,7 +23,7 @@ router.put(`/table/${tableName}`, async (req, res) => {
 });
 
 router.patch(`/table/${tableName}`, async (req, res) => {
-    const discipline = req.body.discipline
+    const discipline = req.body
     try {
         await DBQuery(`UPDATE ${tableName}
             SET
@@ -41,7 +41,7 @@ router.patch(`/table/${tableName}`, async (req, res) => {
 });
 
 router.delete(`/table/${tableName}`, async (req, res) => {
-    const discipline_id = req.body.discipline.discipline_id
+    const discipline_id = req.body.discipline_id
     try {
         await DBQuery(`DELETE FROM ${tableName} WHERE employee_id = ${discipline_id};`)
         res.status(200).json({message:'Success'})
