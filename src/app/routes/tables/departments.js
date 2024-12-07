@@ -31,8 +31,9 @@ router.put(`/table/${tableName}`, async (req, res) => {
 
 router.patch(`/table/${tableName}`, async (req, res) => {
     const department = req.body
-    console.log(12768763);
-    console.log(req.body);
+    if (!(department.department_name)) {
+        res.status(400).json({ message:'Bad request: empty department name' })
+    }
     try {
         await DBQuery(`UPDATE ${tableName}
             SET
