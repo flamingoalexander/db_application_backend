@@ -47,16 +47,18 @@ router.patch('/table/employees', async (req, res) => {
                 employee_id = ${employee.employee_id}; 
         `)
         res.status(200).send('Success');
+        console.log('success patch' + employee);
     } catch (err) {
         res.status(500).send(err.message);
     }
 });
 
-router.patch('/table/employees', async (req, res) => {
+router.delete('/table/employees', async (req, res) => {
     const employee_id = req.body.employee_id
     try {
         DBQuery(`DELETE FROM employees WHERE employee_id = ${employee_id};`)
         res.status(200).send('Success');
+        console.log('success delete' + employee_id);
     } catch (err) {
         res.status(500).send(err.message);
     }
