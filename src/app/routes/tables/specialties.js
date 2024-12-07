@@ -45,6 +45,9 @@ router.patch(`/table/${tableName}`, async (req, res) => {
 
 router.delete(`/table/${tableName}`, async (req, res) => {
     const speciality_id = req.body.speciality_id
+    if (isNaN(speciality_id)) {
+        res.status(400).json({ message:'Bad request'})
+    }
     try {
         await DBQuery(`DELETE FROM ${tableName} WHERE department_id = ${speciality_id};`)
         res.status(200).json({message:'Success'})
