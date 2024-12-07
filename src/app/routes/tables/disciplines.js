@@ -22,7 +22,7 @@ router.put(`/table/${tableName}`, async (req, res) => {
     }
 });
 
-router.patch('/table/disciplines', async (req, res) => {
+router.patch(`/table/${tableName}`, async (req, res) => {
     const discipline = req.body.discipline
     try {
         DBQuery(`UPDATE ${tableName}
@@ -40,10 +40,10 @@ router.patch('/table/disciplines', async (req, res) => {
     }
 });
 
-router.delete('/table/disciplines', async (req, res) => {
+router.delete(`/table/${tableName}`, async (req, res) => {
     const discipline_id = req.body.discipline.discipline_id
     try {
-        DBQuery(`DELETE FROM employees WHERE employee_id = ${discipline_id};`)
+        DBQuery(`DELETE FROM ${tableName} WHERE employee_id = ${discipline_id};`)
         res.status(200).json({message:'Success'})
         console.log('success delete' + discipline_id);
     } catch (err) {
