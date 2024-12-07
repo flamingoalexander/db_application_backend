@@ -9,7 +9,7 @@ const tableName = 'departments';
 router.put(`/table/${tableName}`, async (req, res) => {
     const department = req.body
     try {
-        DBQuery(`INSERT INTO ${tableName} (
+        await DBQuery(`INSERT INTO ${tableName} (
             department_name,
             department_type
         ) VALUES (
@@ -27,7 +27,7 @@ router.patch(`/table/${tableName}`, async (req, res) => {
     console.log(12768763);
     console.log(req.body);
     try {
-        DBQuery(`UPDATE ${tableName}
+        await DBQuery(`UPDATE ${tableName}
             SET
                 department_name = '${department.department_name}',
                 department_type = '${department.department_type}'
@@ -45,7 +45,7 @@ router.patch(`/table/${tableName}`, async (req, res) => {
 router.delete(`/table/${tableName}`, async (req, res) => {
     const department_id = req.body.department_id
     try {
-        DBQuery(`DELETE FROM ${tableName} WHERE department_id = ${department_id};`)
+        await DBQuery(`DELETE FROM ${tableName} WHERE department_id = ${department_id};`)
         res.status(200).json({message:'Success'})
         console.log('success delete' + department_id);
     } catch (err) {
