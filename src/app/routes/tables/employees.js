@@ -32,18 +32,18 @@ router.put('/table/employees', async (req, res) => {
 });
 
 router.patch('/table/employees', async (req, res) => {
-    const employee = req.body.employee
+    const employee = req.body
     console.log(employee)
     try {
         DBQuery(`UPDATE employees
             SET 
-                job_title = '${employee.job_title}',
-                full_name = '${employee.full_name}',
-                DOB = '${employee.dob}',
-                hiring_date = '${employee.hiring_date}',
+                job_title = '${employee.job_title || ''}',
+                full_name = '${employee.full_name || ''}',
+                DOB = '${employee.dob || ''}',
+                hiring_date = '${employee.hiring_date || ''}',
                 experience = '5 years',
-                academic_degree = '${employee.academic_degree}',
-                education = '${employee.education}'
+                academic_degree = '${employee.academic_degree || ''}',
+                education = '${employee.education || ''}'
             WHERE 
                 employee_id = ${employee.employee_id}; 
         `)
