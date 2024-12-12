@@ -15,10 +15,10 @@ router.put(`/table/${tableName}`, async (req, res) => {
     try {
         await DBQuery(`INSERT INTO ${tableName} (
             discipline_id,
-            specialty_id
+            speciality_id
         ) VALUES (
                          '${record.discipline_id}',
-                         '${record.specialty_id}');
+                         '${record.speciality_id}');
         `)
         res.status(200).json({message:'Success'})
     } catch (err) {
