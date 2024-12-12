@@ -8,13 +8,13 @@ const tableName = 'phone_numbers';
 
 router.put(`/table/${tableName}`, async (req, res) => {
     const record = req.body
-    if (!(record.id) || !(record.phone_number)) {
+    if (!(record.employee_id) || !(record.phone_number)) {
         return res.status(400).json({ message:'Bad request: empty department name' })
     }
     try {
         await DBQuery(`INSERT INTO ${tableName} (
             phone_number,
-            employee_id,
+            employee_id
         ) VALUES (
              '${record.phone_number}', 
              '${record.employee_id}');
