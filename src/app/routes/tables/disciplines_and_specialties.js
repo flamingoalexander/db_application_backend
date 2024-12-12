@@ -8,8 +8,9 @@ const tableName = 'disciplines_and_specialties';
 
 router.put(`/table/${tableName}`, async (req, res) => {
     const record = req.body
-    if (!(record.discipline_id) || !(record.specialty_id)) {
-        return res.status(400).json({ message:'Bad request: empty employee or specialty' })
+    console.log(record);
+    if (!(record.discipline_id) || !(record.speciality_id)) {
+        return res.status(400).json({ message:'Bad request: empty discipline or specialty' })
     }
     try {
         await DBQuery(`INSERT INTO ${tableName} (
