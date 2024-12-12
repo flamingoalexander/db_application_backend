@@ -28,3 +28,4 @@ router.put(`/table/${tableName}`, async (req, res) => {
         console.log(err)
     }
 });
+module.exports = router;
