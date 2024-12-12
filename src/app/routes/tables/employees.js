@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.put('/table/employees', async (req, res) => {
     const employee = req.body
+
     if (!(employee.job_title && employee.full_name)) {
         return res.status(400).json({ message:'Bad request: empty job title or full name' })
     }
@@ -23,7 +24,7 @@ router.put('/table/employees', async (req, res) => {
              '${employee.full_name}',          
              '${employee.dob}',  
              '${employee.hiring_date}',          
-             '${employee.experience}',   
+             '${employee.experience.years} years',   
              '${employee.academic_degree}',     
              '${employee.education}'         
                  );
@@ -36,6 +37,7 @@ router.put('/table/employees', async (req, res) => {
 
 router.patch('/table/employees', async (req, res) => {
     const employee = req.body
+    console.log(employee.experience);
     if (!(employee.job_title && employee.full_name)) {
         return res.status(400).json({ message:'Bad request: empty job title or full name' })
     }
@@ -46,14 +48,14 @@ router.patch('/table/employees', async (req, res) => {
                 full_name = '${employee.full_name || ''}',
                 DOB = '${employee.dob || ''}',
                 hiring_date = '${employee.hiring_date || ''}',
-                experience = '5 years',
+                experience = '${employee.experience.years} years',
                 academic_degree = '${employee.academic_degree || ''}',
                 education = '${employee.education || ''}'
             WHERE 
                 employee_id = ${employee.employee_id}; 
         `)
         res.status(200).json({message:'Success'})
-        console.log('success patch' + employee);
+        console.log('success patch' + 'employee');
     } catch (err) {
         res.status(500).json({message:err.message});
         console.log(err)
