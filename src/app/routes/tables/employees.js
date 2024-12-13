@@ -64,7 +64,6 @@ router.patch('/table/employees', async (req, res) => {
 
 router.delete('/table/employees', async (req, res) => {
     const employee_id = req.body.employee_id
-    console.log(req.body);
     if (isNaN(employee_id)) {
         return res.status(400).json({ message:'Bad request'})
     }
