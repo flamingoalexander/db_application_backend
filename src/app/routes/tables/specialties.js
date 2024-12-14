@@ -49,7 +49,7 @@ router.delete(`/table/${tableName}`, async (req, res) => {
         res.status(400).json({ message:'Bad request'})
     }
     try {
-        await DBQuery(`DELETE FROM ${tableName} WHERE department_id = ${speciality_id};`)
+        await DBQuery(`DELETE FROM ${tableName} WHERE speciality_id = ${speciality_id};`)
         res.status(200).json({message:'Success'})
         console.log('success delete' + speciality_id);
     } catch (err) {
