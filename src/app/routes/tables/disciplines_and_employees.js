@@ -53,17 +53,20 @@ router.put(`/table/${tableName}`, async (req, res) => {
 //     }
 // });
 //
-// router.delete(`/table/${tableName}`, async (req, res) => {
-//     const department_id = req.body.department_id
-//     if (isNaN(department_id)) {
-//         return res.status(400).json({ message:'Bad request'})
-//     }
-//     try {
-//         await DBQuery(`DELETE FROM ${tableName} WHERE department_id = ${department_id};`)
-//         res.status(200).json({message:'Success'})
-//         console.log('success delete' + department_id);
-//     } catch (err) {
-//         res.status(500).json({message:err.message});
-//     }
-// });
+
+
+router.delete(`/table/${tableName}`, async (req, res) => {
+    const record = req.body
+    console.log(record);
+    if (!(record.discipline_id) || !(record.employee_id)) {
+        return res.status(400).json({ message:'Bad request: empty employee_id or department_id' })
+    }
+    try {
+        await DBQuery(`DELETE FROM ${tableName} WHERE discipline_id = ${record.discipline_id} AND discipline_id = ${record.discipline_id};`)
+        res.status(200).json({message:'Success'})
+        console.log('success delete employees_and_departments');
+    } catch (err) {
+        res.status(500).json({message:err.message});
+    }
+});
 module.exports = router;
