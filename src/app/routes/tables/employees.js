@@ -24,7 +24,7 @@ router.put('/table/employees', async (req, res) => {
              '${employee.full_name}',          
              '${employee.dob}',  
              '${employee.hiring_date}',          
-             '${employee.experience}',   
+             '${employee.experience} years',   
              '${employee.academic_degree}',     
              '${employee.education}'         
                  );
