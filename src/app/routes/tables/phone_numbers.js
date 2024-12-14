@@ -30,17 +30,17 @@ router.put(`/table/${tableName}`, async (req, res) => {
 });
 
 // router.patch(`/table/${tableName}`, async (req, res) => {
-//     const department = req.body
-//     if (!(department.department_name)) {
-//         return res.status(400).json({ message:'Bad request: empty department name' })
+//     const record = req.body
+//     if (!(record.phone_number) || !(record.employee_id)) {
+//         return res.status(400).json({ message:'Bad request: empty phone_number or employee_id' })
 //     }
 //     try {
 //         await DBQuery(`UPDATE ${tableName}
 //             SET
-//                 department_name = '${department.department_name}',
-//                 department_type = '${department.department_type}'
+//                 phone_number = '${record.phone_number}',
+//                 employee_id = '${department.department_type}'
 //             WHERE
-//                 department_id = ${department.department_id};
+//                 employee_id = ${record.employee_id};
 //         `)
 //         res.status(200).json({message:'Success'})
 //         console.log('success patch' + department);
@@ -53,17 +53,18 @@ router.put(`/table/${tableName}`, async (req, res) => {
 //     }
 // });
 
-// router.delete(`/table/${tableName}`, async (req, res) => {
-//     const department_id = req.body.department_id
-//     if (isNaN(department_id)) {
-//         return res.status(400).json({ message:'Bad request'})
-//     }
-//     try {
-//         await DBQuery(`DELETE FROM ${tableName} WHERE department_id = ${department_id};`)
-//         res.status(200).json({message:'Success'})
-//         console.log('success delete' + department_id);
-//     } catch (err) {
-//         res.status(500).json({message:err.message});
-//     }
-// });
+router.delete(`/table/${tableName}`, async (req, res) => {
+    const record = req.body
+    console.log(record);
+    if (!(record.phone_number) || !(record.employee_id)) {
+        return res.status(400).json({ message:'Bad request: empty phone_number or employee_id' })
+    }
+    try {
+        await DBQuery(`DELETE FROM ${tableName} WHERE phone_number = ${record.phone_number} AND employee_id = ${record.employee_id};`)
+        res.status(200).json({message:'Success'})
+        console.log('success delete phone number');
+    } catch (err) {
+        res.status(500).json({message:err.message});
+    }
+});
 module.exports = router;
