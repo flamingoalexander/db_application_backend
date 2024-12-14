@@ -37,7 +37,8 @@ router.put('/table/employees', async (req, res) => {
 
 router.patch('/table/employees', async (req, res) => {
     const employee = req.body
-    console.log(employee.experience);
+    console.log(555555);
+    console.log(employee);
     if (!(employee.job_title && employee.full_name)) {
         return res.status(400).json({ message:'Bad request: empty job title or full name' })
     }
@@ -48,7 +49,7 @@ router.patch('/table/employees', async (req, res) => {
                 full_name = '${employee.full_name || ''}',
                 DOB = '${employee.dob || ''}',
                 hiring_date = '${employee.hiring_date || ''}',
-                experience = '${employee.experience.years} years',
+                experience = '${employee.experience} years',
                 academic_degree = '${employee.academic_degree || ''}',
                 education = '${employee.education || ''}'
             WHERE 
