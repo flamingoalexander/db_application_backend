@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.put('/table/employees', async (req, res) => {
     const employee = req.body
-
+    console.log(employee.experience);
     if (!(employee.job_title && employee.full_name)) {
         return res.status(400).json({ message:'Bad request: empty job title or full name' })
     }
@@ -24,7 +24,7 @@ router.put('/table/employees', async (req, res) => {
              '${employee.full_name}',          
              '${employee.dob}',  
              '${employee.hiring_date}',          
-             '${employee.experience.years} years',   
+             '${employee.experience}',   
              '${employee.academic_degree}',     
              '${employee.education}'         
                  );
