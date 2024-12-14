@@ -28,4 +28,18 @@ router.put(`/table/${tableName}`, async (req, res) => {
         console.log(err)
     }
 });
+router.delete(`/table/${tableName}`, async (req, res) => {
+    const record = req.body
+    console.log(record);
+    if (!(record.employee_id) || !(record.department_id)) {
+        return res.status(400).json({ message:'Bad request: empty employee_id or department_id' })
+    }
+    try {
+        await DBQuery(`DELETE FROM ${tableName} WHERE employee_id = ${record.employee_id} AND department_id = ${record.department_id};`)
+        res.status(200).json({message:'Success'})
+        console.log('success delete employees_and_departments');
+    } catch (err) {
+        res.status(500).json({message:err.message});
+    }
+});
 module.exports = router;
